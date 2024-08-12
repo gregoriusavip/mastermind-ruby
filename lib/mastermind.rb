@@ -17,4 +17,13 @@ class Mastermind
     4.times { |i| code[COLORS[Random.rand(6)]] << i }
     code
   end
+
+  def feedback(code, index)
+    peg = @secret_code.fetch(code, nil)
+    if peg
+      return peg.include?(index) ? 'WHITE' : 'BLACK'
+    end
+
+    peg
+  end
 end
