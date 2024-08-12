@@ -12,6 +12,9 @@ class Mastermind
   end
 
   def random_code
-    4.times.map { COLORS[Random.rand(6)] }
+    # Key = color code, Value = index of the color code as a set
+    code = Hash.new { |hash, key| hash[key] = Set[] }
+    4.times { |i| code[COLORS[Random.rand(6)]] << i }
+    code
   end
 end
