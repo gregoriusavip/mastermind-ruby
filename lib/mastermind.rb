@@ -12,5 +12,3 @@ class Mastermind
     4.times.map { COLORS[Random.rand(6)] }
   end
 end
-
-Mastermind.new.computer_mastermind
