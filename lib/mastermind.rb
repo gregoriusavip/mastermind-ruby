@@ -8,10 +8,10 @@ class Mastermind
   attr_reader :secret_code
 
   def computer_mastermind
-    @secret_code = random_code
+    @secret_code = generate_code
   end
 
-  def random_code
+  def generate_code
     # Key = color code, Value = index of the color code as a set
     code = Hash.new { |hash, key| hash[key] = Set[] }
     4.times { |i| code[COLORS[Random.rand(6)]] << i }
