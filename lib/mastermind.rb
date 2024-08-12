@@ -4,8 +4,10 @@
 class Mastermind
   COLORS = %i[YELLOW ORANGE RED PINK VIOLET BLUE].freeze
 
+  attr_reader :secret_code
+
   def computer_mastermind
-    secret_code = random_code
+    @secret_code = random_code
   end
 
   def random_code
