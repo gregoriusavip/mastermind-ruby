@@ -2,7 +2,8 @@
 
 # Create and manage a mastermind game
 class Mastermind
-  COLORS = %i[YELLOW ORANGE RED PINK VIOLET BLUE].freeze
+  COLORS = %w[YELLOW ORANGE RED PINK VIOLET BLUE].freeze
+  MAX_GUESSES = 12
 
   attr_reader :secret_code
 
