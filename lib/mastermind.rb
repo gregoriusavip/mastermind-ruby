@@ -32,7 +32,7 @@ class Mastermind
   def feedback(code, index)
     peg = @code_pegs.fetch(code, nil)
     if peg
-      return peg.include?(index) ? 'WHITE' : 'BLACK'
+      return peg.include?(index) ? 'BLACK' : 'WHITE'
     end
 
     peg
