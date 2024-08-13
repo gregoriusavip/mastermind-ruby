@@ -5,7 +5,7 @@ class Code
   COLORS = %w[YELLOW ORANGE RED PINK VIOLET BLUE].freeze
   COLORS_SET = COLORS.to_set
 
-  def self.generate_code
+  def self.generate
     # Key = color code, Value = index of the color code as a set
     code = Hash.new { |hash, key| hash[key] = Set[] }
     4.times { |i| code[COLORS[Random.rand(6)]] << i }

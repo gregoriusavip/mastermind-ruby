@@ -25,7 +25,7 @@ class Mastermind
   private
 
   def computer_mastermind
-    @code_pegs = Code.generate_code
+    @code_pegs = Code.generate
     nil
   end
 
