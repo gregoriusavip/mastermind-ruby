@@ -4,8 +4,6 @@ require_relative('code')
 
 # Mastermind stores a secret code and able to provide feedbacks from a guess
 class Mastermind
-  MAX_GUESSES = 12
-
   attr_reader :secret_code
 
   private
