@@ -13,15 +13,15 @@ class Code
   end
 
   def self.create_guess
-    color = nil
+    colors = nil
     puts 'POSSIBLE COLORS: YELLOW, ORANGE, RED, PINK, VIOLET, BLUE'
     loop do
       puts "\nInput the valid colors separated by spaces, ex: 'yellow orange red pink'"
-      color = gets.chomp.upcase.split(' ')
-      break if color.length == 4 && color.all? { |color| Code::COLORS_SET.include?(color) }
+      colors = gets.chomp.upcase.split(' ')
+      break if colors.length == 4 && color.all? { |color| Code::COLORS_SET.include?(color) }
 
       puts('Invalid guess')
     end
-    color
+    colors
   end
 end
