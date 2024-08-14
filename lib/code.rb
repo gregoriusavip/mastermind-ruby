@@ -13,15 +13,15 @@ class Code
   end
 
   def self.create_guess
-    4.times.map do |i|
-      color = nil
-      puts 'POSSIBLE COLORS: YELLOW, ORANGE, RED, PINK, VIOLET, BLUE'
-      loop do
-        puts "\nGuess no. #{i + 1}: "
-        color = gets.chomp.upcase
-        COLORS_SET.include?(color) ? break : puts('Invalid guess')
-      end
-      color
+    color = nil
+    puts 'POSSIBLE COLORS: YELLOW, ORANGE, RED, PINK, VIOLET, BLUE'
+    loop do
+      puts "\nInput the valid colors separated by spaces, ex: 'yellow orange red pink'"
+      color = gets.chomp.upcase.split(' ')
+      break if color.length == 4 && color.all? { |color| Code::COLORS_SET.include?(color) }
+
+      puts('Invalid guess')
     end
+    color
   end
 end
