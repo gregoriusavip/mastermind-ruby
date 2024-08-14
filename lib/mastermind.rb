@@ -4,7 +4,7 @@ require_relative('code')
 
 # Mastermind stores a secret code and able to provide feedbacks from a guess
 class Mastermind
-  attr_reader :key_pegs
+  attr_reader :key_pegs, :code_pegs
 
   def initialize
     # Assume computer is the mastermind
@@ -19,7 +19,7 @@ class Mastermind
   end
 
   def win?
-    @key_pegs.uniq.length.eql?(1) && @key_pegs[0].eql('BLACK')
+    @key_pegs.uniq.length.eql?(1) && @key_pegs[0].eql?('BLACK')
   end
 
   private
