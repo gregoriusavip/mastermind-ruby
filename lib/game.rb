@@ -18,7 +18,7 @@ class Game
   def start
     # assume only computer can be the mastermind
     MAX_GUESSES.times do |i|
-      @prev_guesses << Code.create_guess
+      @prev_guesses << Code.create_code
       @prev_feedbacks << @mastermind.make_guess(prev_guesses.last)
       prompt(i + 1)
       if @mastermind.win?

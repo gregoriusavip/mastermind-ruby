@@ -9,7 +9,7 @@ class Code
     format_code(4.times.map { COLORS[Random.rand(6)] })
   end
 
-  def self.create_guess
+  def self.create_code
     colors = nil
     puts 'POSSIBLE COLORS: YELLOW, ORANGE, RED, PINK, VIOLET, BLUE'
     loop do
@@ -17,7 +17,7 @@ class Code
       colors = gets.chomp.upcase.split(' ')
       break if colors.length == 4 && colors.all? { |color| Code::COLORS_SET.include?(color) }
 
-      puts('Invalid guess')
+      puts('Invalid colors')
     end
     format_code(colors)
   end
