@@ -12,14 +12,15 @@ class Mastermind
   end
 
   def make_guess(guesses)
-    @key_pegs = guesses.map.with_index do |guess, i|
-      feedback(guess, i)
+    @key_pegs = []
+    guesses.each_pair do |code, indices|
+      @key_pegs.push(*feedback(code, indices))
     end
     @key_pegs.shuffle
   end
 
   def win?
-    @key_pegs.uniq.length.eql?(1) && @key_pegs[0].eql?('BLACK')
+    @key_pegs.length.eql?(4) && @key_pegs.uniq.length.eql?(1) && @key_pegs[0].eql?('BLACK')
   end
 
   private
@@ -29,12 +30,13 @@ class Mastermind
     nil
   end
 
-  def feedback(code, index)
-    peg = @code_pegs.fetch(code, nil)
-    if peg
-      return peg.include?(index) ? 'BLACK' : 'WHITE'
-    end
+  def feedback(code, indices)
+    return [nil] unless @code_pegs.key?(code)
 
-    peg
+    res = []
+    code_indices = @code_pegs[code]
+    code_indices.intersection(indices).length.times { res << 'BLACK' } if code_indices.intersect? indices
+    [(indices - code_indices).length, (code_indices - indices).length].min.times { res << 'WHITE' }
+    res
   end
 end
