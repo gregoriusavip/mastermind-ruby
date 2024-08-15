@@ -7,8 +7,8 @@ class Mastermind
   attr_reader :key_pegs, :code_pegs
 
   def initialize
-    # Assume computer is the mastermind
-    computer_mastermind
+    puts 'Do you want to be the mastermind? (Y|y to confirm, any other character otherwise)'
+    gets.chomp.downcase.eql?('y') ? player_mastermind : computer_mastermind
   end
 
   def make_guess(guesses)
@@ -27,6 +27,11 @@ class Mastermind
 
   def computer_mastermind
     @code_pegs = Code.generate
+    nil
+  end
+
+  def player_mastermind
+    @code_pegs = Code.create_code
     nil
   end
 
