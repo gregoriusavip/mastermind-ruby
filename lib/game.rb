@@ -7,23 +7,20 @@ require_relative('mastermind')
 class Game
   MAX_GUESSES = 12
 
-  attr_reader :prev_guesses, :prev_feedbacks
+  attr_reader :prev_guess, :prev_feedback
 
   def initialize
-    @prev_guesses = []
-    @prev_feedbacks = []
     puts 'Do you want to be the mastermind? (Y|y to confirm, any other character otherwise)'
-    @player_mastermind = gets.chomp.downcase.eql?('y') ? true : false
-    @mastermind = Mastermind.new(player: @player_mastermind)
+    self.player_mastermind = gets.chomp.downcase.eql?('y') ? true : false
+    self.mastermind = Mastermind.new(player: player_mastermind)
   end
 
   def start
-    # assume only computer can be the mastermind
     MAX_GUESSES.times do |i|
-      @prev_guesses << Code.create_code
-      @prev_feedbacks << @mastermind.make_guess(prev_guesses.last)
+      self.prev_guess = Code.create_code
+      self.prev_feedback = mastermind.make_guess(prev_guess)
       prompt(i + 1)
-      if @mastermind.win?
+      if mastermind.win?
         announce(:win)
         return nil
       end
@@ -33,9 +30,12 @@ class Game
 
   private
 
+  attr_writer :prev_guess, :prev_feedback
+  attr_accessor :mastermind, :player_mastermind
+
   def prompt(cur_guess)
-    puts "\nGuess No #{cur_guess}: #{format_output(prev_guesses.last)}"
-    puts "Feedback: #{prev_feedbacks.last.inject('') { |str, peg| peg.nil? ? str : "#{peg} #{str}" }.chomp}\n\n"
+    puts "\nGuess No #{cur_guess}: #{format_output(prev_guess)}"
+    puts "Feedback: #{prev_feedback.inject('') { |str, peg| peg.nil? ? str : "#{peg} #{str}" }.chomp}\n\n"
   end
 
   def announce(state = :lose)
@@ -44,7 +44,7 @@ class Game
     else
       puts 'Ran out of guesses.'
     end
-    puts "The pegs are: #{format_output(@mastermind.code_pegs)}"
+    puts "The pegs are: #{format_output(mastermind.code_pegs)}"
   end
 
   def format_output(hash_colors)
