@@ -6,9 +6,8 @@ require_relative('code')
 class Mastermind
   attr_reader :key_pegs, :code_pegs
 
-  def initialize
-    puts 'Do you want to be the mastermind? (Y|y to confirm, any other character otherwise)'
-    gets.chomp.downcase.eql?('y') ? player_mastermind : computer_mastermind
+  def initialize(player: false)
+    player ? player_mastermind : computer_mastermind
   end
 
   def make_guess(guesses)

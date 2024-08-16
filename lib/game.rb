@@ -12,7 +12,9 @@ class Game
   def initialize
     @prev_guesses = []
     @prev_feedbacks = []
-    @mastermind = Mastermind.new
+    puts 'Do you want to be the mastermind? (Y|y to confirm, any other character otherwise)'
+    @player_mastermind = gets.chomp.downcase.eql?('y') ? true : false
+    @mastermind = Mastermind.new(player: @player_mastermind)
   end
 
   def start
