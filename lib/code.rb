@@ -4,6 +4,14 @@
 class Code
   COLORS = %w[YELLOW ORANGE RED PINK VIOLET BLUE].freeze
   COLORS_SET = COLORS.to_set
+  MAPPED_COLORS = {
+    'YELLOW' => 0,
+    'ORANGE' => 1,
+    'RED' => 2,
+    'PINK' => 3,
+    'VIOLET' => 4,
+    'BLUE' => 5
+  }.freeze
 
   def self.generate
     format_code(4.times.map { COLORS[Random.rand(6)] })
@@ -31,5 +39,13 @@ class Code
     code
   end
 
-  private_class_method :format_code
+  def self.map_to_code(numbers_pattern)
+    numbers_pattern.map { |color_num| MAPPED_COLORS.key(color_num) }
+  end
+
+  def self.map_code_pegs(feedback)
+    feedback_map = Hash.new(0)
+    feedback.each { |color| feedback_map[color] += 1 unless color.nil? }
+    feedback_map
+  end
 end
