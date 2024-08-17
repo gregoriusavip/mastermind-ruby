@@ -1,2 +1,2 @@
 # mastermind-ruby
-Play the game Mastermind build on Ruby
+Play the game of Mastermind built on Ruby
