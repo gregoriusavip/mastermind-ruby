@@ -2,6 +2,7 @@
 
 require_relative('code')
 require_relative('mastermind')
+require_relative('ai')
 
 # Create a mastermind game instance
 class Game
@@ -11,14 +12,14 @@ class Game
 
   def initialize
     puts 'Do you want to be the mastermind? (Y|y to confirm, any other character otherwise)'
-    self.player_mastermind = gets.chomp.downcase.eql?('y') ? true : false
+    self.player_mastermind = gets.chomp.downcase.eql?('y')
     self.mastermind = Mastermind.new(player: player_mastermind)
   end
 
   def start
+    ai_controller = player_mastermind ? AI.new : nil
     MAX_GUESSES.times do |i|
-      self.prev_guess = Code.create_code
-      self.prev_feedback = mastermind.make_guess(prev_guess)
+      player_mastermind ? ai_guess(ai_controller) : player_guess
       prompt(i + 1)
       if mastermind.win?
         announce(:win)
@@ -32,6 +33,17 @@ class Game
 
   attr_writer :prev_guess, :prev_feedback
   attr_accessor :mastermind, :player_mastermind
+
+  def player_guess
+    self.prev_guess = Code.create_code
+    self.prev_feedback = mastermind.make_guess(prev_guess)
+  end
+
+  def ai_guess(ai_controller)
+    self.prev_guess = ai_controller.guess
+    self.prev_feedback = mastermind.make_guess(prev_guess)
+    ai_controller.feedback = prev_feedback
+  end
 
   def prompt(cur_guess)
     puts "\nGuess No #{cur_guess}: #{format_output(prev_guess)}"
